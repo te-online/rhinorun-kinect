@@ -5,8 +5,6 @@ import processing.net.*;
 
 int[] userlist;
 
-Client webClient;
-
 boolean userInFront = false;
 boolean userChanged = false;
 float userChangedBy = millis();
