@@ -3,8 +3,6 @@ SimpleOpenNI context;
 
 import processing.net.*; 
 
-int[] userlist;
-
 boolean userInFront = false;
 boolean userChanged = false;
 float userChangedBy = millis();
@@ -21,6 +19,9 @@ void setup(){
      return;
   }
   
+  // disable mirror
+  context.setMirror(true);
+  
   // enable depthMap generation 
   context.enableDepth();
   
@@ -29,6 +30,10 @@ void setup(){
 }
 
 void draw() {
+  context.update();
+  
+  int[] userlist = context.getUsers();
+  
   if(userlist.length > 0) {
     if(!userInFront) {
       if(millis() - userChangedBy > tolerance) {
@@ -59,20 +64,20 @@ void draw() {
 // -----------------------------------------------------------------
 // SimpleOpenNI user events
 
-void onNewUser(SimpleOpenNI curContext,int userId)
+void onNewUser(SimpleOpenNI curContext, int userId)
 {
-  println("onNewUser - userId: " + userId);
-  println("\tstart tracking skeleton");
+  //println("onNewUser - userId: " + userId);
+  //println("\tstart tracking skeleton");
   
   context.startTrackingSkeleton(userId);
 }
 
-void onLostUser(SimpleOpenNI curContext,int userId)
+void onLostUser(SimpleOpenNI curContext, int userId)
 {
-  println("onLostUser - userId: " + userId);
+  //println("onLostUser - userId: " + userId);
 }
 
-void onVisibleUser(SimpleOpenNI curContext,int userId)
+void onVisibleUser(SimpleOpenNI curContext, int userId)
 {
   //println("onVisibleUser - userId: " + userId);
 }
