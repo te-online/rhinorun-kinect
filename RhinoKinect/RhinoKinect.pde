@@ -16,8 +16,6 @@ void setup(){
   size(640, 480, P3D);
   frameRate(30);
   
-  webClient = new Client(this, "127.0.0.1/controller?kinect="+str(userInFront), 1577);
-  
   context = new SimpleOpenNI(this);
   if(context.isInit() == false) {
      println("Can't init SimpleOpenNI, maybe the camera is not connected!"); 
@@ -52,8 +50,9 @@ void draw() {
   }
   
   if(userChanged) {
-    println("127.0.0.1/controller?kinect="+str(userInFront));
-    //webClient = new Client(this, "127.0.0.1/controller?kinect="+str(userInFront), 1577);  // Connect to server on port 80
+    String target = "http://127.0.0.1:1577/controller?kinect="+str(userInFront);
+    String[] lines = loadStrings(target);
+    println("SENT to target: "+target);
     userChanged = false; 
   }
 }
